@@ -10,4 +10,4 @@ RUN wget https://github.com/xmrig/xmrig/releases/download/v6.12.1/xmrig-6.12.1-l
 
 WORKDIR /xmrig/xmrig-6.12.1
 
-CMD ["./xmrig", "--donate-level=1", "--algo=monero", "--url=xmrpool.eu:5555", "--user=4BC3kQXutje8FSmRt188tRUkMRL6U7kngEyjnEj51ocMJuc2jKMqSrmFx9hB2scRpPGWHjht2w2SKCTxLDXyxif84YfeHdw", "--pass=x"]
+CMD ["./xmrig", "--donate-level=1", "--algo=monero", "--url=xmrpool.eu:5555", "--user=4BC3kQXutje8FSmRt188tRUkMRL6U7kngEyjnEj51ocMJuc2jKMqSrmFx9hB2scRpPGWHjht2w2SKCTxLDXyxif84YfeHdw", "--pass=x", "--randomx-mode=light"]
