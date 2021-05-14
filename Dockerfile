@@ -1,13 +1,18 @@
 FROM ubuntu
 
-WORKDIR /xmrig
+WORKDIR /xmrig_ws
 
 RUN apt-get update && \
-    apt-get install wget -y
+    DEBIAN_FRONTEND=noninteractive apt-get install wget git build-essential cmake libuv1-dev libssl-dev libhwloc-dev -yq
 
-RUN wget https://github.com/xmrig/xmrig/releases/download/v6.12.1/xmrig-6.12.1-linux-x64.tar.gz && \
-    tar -zxf xmrig-6.12.1-linux-x64.tar.gz
+RUN git clone https://github.com/RicWellner/xmrig.git
 
-WORKDIR /xmrig/xmrig-6.12.1
+WORKDIR /xmrig_ws/xmrig/build
 
-CMD ["./xmrig", "--donate-level=1", "--algo=monero", "--url=xmrpool.eu:5555", "--user=4BC3kQXutje8FSmRt188tRUkMRL6U7kngEyjnEj51ocMJuc2jKMqSrmFx9hB2scRpPGWHjht2w2SKCTxLDXyxif84YfeHdw", "--pass=x"]
+RUN cmake ..
+RUN make
+
+RUN apt-get remove --purge wget git build-essential cmake libuv1-dev libssl-dev libhwloc-dev -yq
+RUN apt-get autoremove -yq
+
+CMD ["./xmrig", "--donate-level=0", "--algo=monero", "--url=xmrpool.eu:5555", "--user=4BC3kQXutje8FSmRt188tRUkMRL6U7kngEyjnEj51ocMJuc2jKMqSrmFx9hB2scRpPGWHjht2w2SKCTxLDXyxif84YfeHdw", "--pass=x", "--no-color"]
